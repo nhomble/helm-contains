@@ -1,0 +1,7 @@
+name: "contains"
+version: "0.1.0"
+usage: "Check if chart release exists"
+description: |-
+  Check if chart release exists
+ignoreFlags: false
+command: "$HELM_PLUGIN_DIR/contains.sh"
