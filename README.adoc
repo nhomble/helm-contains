@@ -13,6 +13,16 @@ else
 fi
 ----
 
+And helm args are used as expected
+
+[source,bash]
+----
+if [[ $(helm contains ${CHART_NAME} -n ${NOT_DEFAULT_NAMESPACE}) = "true" ]]; then
+  echo "exists"
+fi
+----
+
+
 == Install
 [source,bash]
 ----
