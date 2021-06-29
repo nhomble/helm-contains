@@ -1,5 +1,7 @@
 = helm contains
 
+image:https://github.com/nhomble/helm-contains/actions/workflows/check-install.yml/badge.svg)](https://github.com/nhomble/helm-contains/actions/workflows/check-install.yml[Check Install] image:https://github.com/nhomble/helm-contains/actions/workflows/linter.yml/badge.svg)](https://github.com/nhomble/helm-contains/actions/workflows/linter.yml[Linter]
+
 [.lead]
 check for existence of chart
 
