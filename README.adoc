@@ -1,0 +1,20 @@
+= helm contains
+
+[.lead]
+check for existence of chart
+
+== Usage
+[source,bash]
+----
+if [[ $(helm contains [CHART]) = "true" ]];
+  echo "exists"
+else
+  echo "nope"
+fi
+----
+
+== Install
+[source,bash]
+----
+helm plugin install https://github.com/nhomble/helm-contains
+----
