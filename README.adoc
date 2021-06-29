@@ -6,7 +6,7 @@ check for existence of chart
 == Usage
 [source,bash]
 ----
-if [[ $(helm contains [CHART]) = "true" ]];
+if [[ $(helm contains ${CHART_NAME}) = "true" ]]; then
   echo "exists"
 else
   echo "nope"
