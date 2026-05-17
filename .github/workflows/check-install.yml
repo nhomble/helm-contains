@@ -14,10 +14,34 @@ jobs:
   install:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
       - name: Setup helm
         uses: azure/setup-helm@v4
         with:
           version: v3.15.4
-      - name: Install plugin
+      - name: Install plugin from checkout
         run: |-
-          helm plugin install https://github.com/nhomble/helm-contains
+          helm plugin install .
+      - name: Set up kind cluster
+        uses: helm/kind-action@v1
+      - name: Create a chart to install
+        run: |-
+          helm create testchart
+      - name: Smoke test - missing release returns false
+        run: |-
+          out=$(helm contains does-not-exist)
+          test "$out" = "false" || { echo "expected false, got: $out"; exit 1; }
+      - name: Smoke test - present release returns true
+        run: |-
+          helm install smoke ./testchart --wait
+          out=$(helm contains smoke)
+          test "$out" = "true" || { echo "expected true, got: $out"; exit 1; }
+      - name: Smoke test - -n flag is parsed by helm, not the script
+        run: |-
+          kubectl create namespace other
+          helm install smoke-ns ./testchart -n other --wait
+          out=$(helm contains -n other smoke-ns)
+          test "$out" = "true" || { echo "expected true, got: $out"; exit 1; }
+          out=$(helm contains -n other does-not-exist)
+          test "$out" = "false" || { echo "expected false, got: $out"; exit 1; }
