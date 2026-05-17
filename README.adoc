@@ -3,23 +3,29 @@
 image:https://github.com/nhomble/helm-contains/actions/workflows/check-install.yml/badge.svg[Check Install] image:https://github.com/nhomble/helm-contains/actions/workflows/linter.yml/badge.svg[Linter]
 
 [.lead]
-check for existence of chart
+check for existence of a chart release
 
 == Usage
+The release name is the first positional argument. The plugin prints
+`true` or `false` on stdout. It exits non-zero only on real errors
+(e.g. `helm` not on `PATH`, unreachable cluster) — a missing release
+prints `false` and exits 0.
+
 [source,bash]
 ----
-if [[ $(helm contains ${CHART_NAME}) = "true" ]]; then
+if [[ $(helm contains "${RELEASE_NAME}") = "true" ]]; then
   echo "exists"
 else
   echo "nope"
 fi
 ----
 
-And helm args are used as expected
+Standard helm flags work as expected. Pass them like you would to any
+other helm command:
 
 [source,bash]
 ----
-if [[ $(helm contains ${CHART_NAME} -n ${NOT_DEFAULT_NAMESPACE}) = "true" ]]; then
+if [[ $(helm contains -n "${NOT_DEFAULT_NAMESPACE}" "${RELEASE_NAME}") = "true" ]]; then
   echo "exists"
 fi
 ----
