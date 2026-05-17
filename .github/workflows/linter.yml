@@ -1,10 +1,15 @@
+---
 name: Linter
 
-on:
+"on":
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
+
+permissions:
+  contents: read
+  statuses: write
 
 jobs:
   build:
@@ -13,7 +18,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
         with:
-          # Full git history is needed to get a proper list of changed files within `super-linter`
+          # Full git history is needed for super-linter's changed-file detection
           fetch-depth: 0
 
       ################################
