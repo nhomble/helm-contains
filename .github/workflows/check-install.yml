@@ -7,6 +7,9 @@ name: Check install
   pull_request:
     branches: [main]
 
+permissions:
+  contents: read
+
 jobs:
   install:
     runs-on: ubuntu-latest
